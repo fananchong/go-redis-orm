@@ -1,0 +1,24 @@
+{
+	"ImportPath": "github.com/fananchong/go-redis-orm",
+	"GoVersion": "go1.8",
+	"GodepVersion": "v79",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/FZambia/go-sentinel",
+			"Rev": "7ec87ec3f92e789de83d4d4a17a5cd069bd2882f"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/internal",
+			"Comment": "v1.3.0",
+			"Rev": "47dc60e71eed504e3ef8e77ee3c6fe720f3be57f"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Comment": "v1.3.0",
+			"Rev": "47dc60e71eed504e3ef8e77ee3c6fe720f3be57f"
+		}
+	]
+}

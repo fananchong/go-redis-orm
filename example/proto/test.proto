@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package pbmsg;
+
+enum Cmd
+{
+    Invaild = 0;
+    Echo = 1;
+    Login = 2;
+}
+
+message MsgEcho
+{
+    string Text  = 1;
+}
+
+message MsgLogin
+{
+    string Account  = 1;
+    string Password = 2;
+}
+
+message MsgLoginRet
+{
+    int32 OK = 1;
+}

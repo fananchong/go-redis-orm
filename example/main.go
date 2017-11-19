@@ -12,6 +12,7 @@ func main() {
 
 	go_redis_orm.CreateDB(dbName, []string{"192.168.1.4:46379", "192.168.1.4:46380", "192.168.1.4:46381"})
 
+	// key值为"a"的 TestStruct1 数据
 	data1 := NewRD_TestStruct1("a")
 	data1.F1 = "aaaa"
 	err := data1.Save(dbName)
@@ -28,6 +29,7 @@ func main() {
 		panic("#3")
 	}
 
+	// key值为1的 TestStruct2 数据
 	data2 := NewRD_TestStruct2(1)
 	data2.F1 = "bbb"
 	err = data2.Save(dbName)

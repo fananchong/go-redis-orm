@@ -3,7 +3,7 @@ redis orm base on protobuf
 
 ### 使用方法
 
-1. 定义proto。**定义的结构，必须有id字段**
+1. 定义proto。**必须有id字段**
 1. 通过redis2go.py，生产 redis orm 类
 
 更详细内容，请参见：http://blog.csdn.net/u013272009/article/details/78574079

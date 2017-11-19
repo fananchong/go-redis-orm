@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package main;
 
-message SameStruct2
+message TestStruct1
 {
-    int32 id  = 1;
+    string id  = 1;
     string f1 = 2; 
 }

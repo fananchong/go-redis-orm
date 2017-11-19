@@ -12,7 +12,7 @@ func main() {
 
 	go_redis_orm.CreateDB(dbName, []string{"192.168.1.4:46379", "192.168.1.4:46380", "192.168.1.4:46381"})
 
-	data1 := NewRD_SameStruct1("a")
+	data1 := NewRD_TestStruct1("a")
 	data1.F1 = "aaaa"
 	err := data1.Save(dbName)
 	if err != nil {
@@ -28,7 +28,7 @@ func main() {
 		panic("#3")
 	}
 
-	data2 := NewRD_SameStruct2(1)
+	data2 := NewRD_TestStruct2(1)
 	data2.F1 = "bbb"
 	err = data2.Save(dbName)
 	if err != nil {

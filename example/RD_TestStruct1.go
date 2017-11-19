@@ -11,34 +11,34 @@ import (
 	"github.com/golang/protobuf/proto"
 )
 
-type RD_SameStruct1 struct {
-	SameStruct1
+type RD_TestStruct1 struct {
+	TestStruct1
 }
 
-func NewRD_SameStruct1(id string) *RD_SameStruct1 {
-	this := &RD_SameStruct1{}
+func NewRD_TestStruct1(id string) *RD_TestStruct1 {
+	this := &RD_TestStruct1{}
 	this.Id = id
 	return this
 }
 
-func (this *RD_SameStruct1) Key() string {
-	return "SameStruct1:" + this.Id
+func (this *RD_TestStruct1) Key() string {
+	return "TestStruct1:" + this.Id
 }
 
-func (this *RD_SameStruct1) Value() ([]byte, error) {
-	return proto.Marshal(&this.SameStruct1)
+func (this *RD_TestStruct1) Value() ([]byte, error) {
+	return proto.Marshal(&this.TestStruct1)
 }
 
-func (this *RD_SameStruct1) Load(dbName string) error {
+func (this *RD_TestStruct1) Load(dbName string) error {
 	db := go_redis_orm.GetDB(dbName)
 	val, err := redis.String(db.Do("GET", this.Key()))
 	if err == nil {
-		err = proto.Unmarshal([]byte(val), &this.SameStruct1)
+		err = proto.Unmarshal([]byte(val), &this.TestStruct1)
 	}
 	return err
 }
 
-func (this *RD_SameStruct1) Save(dbName string) error {
+func (this *RD_TestStruct1) Save(dbName string) error {
 	db := go_redis_orm.GetDB(dbName)
 	val, err := this.Value()
 	if err == nil {

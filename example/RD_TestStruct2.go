@@ -12,34 +12,34 @@ import (
 	"strconv"
 )
 
-type RD_SameStruct2 struct {
-	SameStruct2
+type RD_TestStruct2 struct {
+	TestStruct2
 }
 
-func NewRD_SameStruct2(id int32) *RD_SameStruct2 {
-	this := &RD_SameStruct2{}
+func NewRD_TestStruct2(id int32) *RD_TestStruct2 {
+	this := &RD_TestStruct2{}
 	this.Id = id
 	return this
 }
 
-func (this *RD_SameStruct2) Key() string {
-	return "SameStruct2:" + strconv.FormatInt(int64(this.Id), 10)
+func (this *RD_TestStruct2) Key() string {
+	return "TestStruct2:" + strconv.FormatInt(int64(this.Id), 10)
 }
 
-func (this *RD_SameStruct2) Value() ([]byte, error) {
-	return proto.Marshal(&this.SameStruct2)
+func (this *RD_TestStruct2) Value() ([]byte, error) {
+	return proto.Marshal(&this.TestStruct2)
 }
 
-func (this *RD_SameStruct2) Load(dbName string) error {
+func (this *RD_TestStruct2) Load(dbName string) error {
 	db := go_redis_orm.GetDB(dbName)
 	val, err := redis.String(db.Do("GET", this.Key()))
 	if err == nil {
-		err = proto.Unmarshal([]byte(val), &this.SameStruct2)
+		err = proto.Unmarshal([]byte(val), &this.TestStruct2)
 	}
 	return err
 }
 
-func (this *RD_SameStruct2) Save(dbName string) error {
+func (this *RD_TestStruct2) Save(dbName string) error {
 	db := go_redis_orm.GetDB(dbName)
 	val, err := this.Value()
 	if err == nil {

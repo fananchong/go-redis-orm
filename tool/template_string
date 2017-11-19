@@ -1,0 +1,43 @@
+package {{packagename}}
+
+import (
+	"github.com/fananchong/go-redis-orm"
+	"github.com/garyburd/redigo/redis"
+	"github.com/golang/protobuf/proto"
+)
+
+type RD_{{classname}} struct {
+	{{classname}}
+}
+
+func NewRD_{{classname}}(id {{key_type}}) *RD_{{classname}} {
+	this := &RD_{{classname}}{}
+	this.Id = id
+	return this
+}
+
+func (this *RD_{{classname}}) Key() string {
+	return "{{prefix}}:" + this.Id
+}
+
+func (this *RD_{{classname}}) Value() ([]byte, error) {
+	return proto.Marshal(&this.{{classname}})
+}
+
+func (this *RD_{{classname}}) Load(dbName string) error {
+	db := go_redis_orm.GetDB(dbName)
+	val, err := redis.String(db.Do("GET", this.Key()))
+	if err == nil {
+		err = proto.Unmarshal([]byte(val), &this.{{classname}})
+	}
+	return err
+}
+
+func (this *RD_{{classname}}) Save(dbName string) error {
+	db := go_redis_orm.GetDB(dbName)
+	val, err := this.Value()
+	if err == nil {
+		_, err = db.Do("SET", this.Key(), val)
+	}
+	return err
+}

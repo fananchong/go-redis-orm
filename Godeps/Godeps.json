@@ -19,6 +19,10 @@
 			"ImportPath": "github.com/garyburd/redigo/redis",
 			"Comment": "v1.3.0",
 			"Rev": "47dc60e71eed504e3ef8e77ee3c6fe720f3be57f"
+		},
+		{
+			"ImportPath": "github.com/golang/protobuf/proto",
+			"Rev": "1643683e1b54a9e88ad26d98f81400c8c9d9f4f9"
 		}
 	]
 }

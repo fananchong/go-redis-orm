@@ -17,7 +17,7 @@ func NewRD_{{classname}}(id {{key_type}}) *RD_{{classname}} {
 }
 
 func (this *RD_{{classname}}) Key() string {
-	return "{{prefix}}:" + this.Id
+	return "{{key_prefix}}:" + this.Id
 }
 
 func (this *RD_{{classname}}) Value() ([]byte, error) {

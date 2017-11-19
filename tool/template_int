@@ -18,7 +18,7 @@ func NewRD_{{classname}}(id {{key_type}}) *RD_{{classname}} {
 }
 
 func (this *RD_{{classname}}) Key() string {
-	return "{{prefix}}:" + strconv.FormatInt(int64(this.Id), 10)
+	return "{{key_prefix}}:" + strconv.FormatInt(int64(this.Id), 10)
 }
 
 func (this *RD_{{classname}}) Value() ([]byte, error) {

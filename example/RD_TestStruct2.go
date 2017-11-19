@@ -31,6 +31,9 @@ func (this *RD_TestStruct2) Value() ([]byte, error) {
 }
 
 func (this *RD_TestStruct2) Load(dbName string) error {
+	id := this.Id
+	this.TestStruct2.Reset()
+	this.Id = id
 	db := go_redis_orm.GetDB(dbName)
 	val, err := redis.String(db.Do("GET", this.Key()))
 	if err == nil {
@@ -45,5 +48,11 @@ func (this *RD_TestStruct2) Save(dbName string) error {
 	if err == nil {
 		_, err = db.Do("SET", this.Key(), val)
 	}
+	return err
+}
+
+func (this *RD_TestStruct2) Delete(dbName string) error {
+	db := go_redis_orm.GetDB(dbName)
+	_, err := db.Do("DEL", this.Key())
 	return err
 }

@@ -5,6 +5,7 @@ type RD_Base interface {
 	Value() ([]byte, error)
 	Load(dbName string) error
 	Save(dbName string) error
+	Delete(dbName string) error
 }
 
 func CreateDB(dbName string, addrs []string) {

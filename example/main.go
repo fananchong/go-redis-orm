@@ -36,7 +36,7 @@ func main() {
 
 	err = data2.Load(dbName)
 	if data2.F1 != "" {
-		panic("#5")
+		panic("#6")
 	}
 
 	fmt.Println("OK")

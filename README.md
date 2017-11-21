@@ -56,3 +56,12 @@ func main() {
 	fmt.Println("OK")
 }
 ```
+
+### Redis哨兵、主从搭建
+
+详细参见：http://blog.csdn.net/u013272009/article/details/78513251
+
+
+### TODO:
+
+  - go_redis_orm.CreateDB(...) 函数自识别redis类型，实例化不同redis客户端实例

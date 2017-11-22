@@ -63,5 +63,6 @@ func main() {
 
 
 ### TODO:
-
+  
+  - 增加接口，支持外部redis实例，方便整合进其他项目中
   - go_redis_orm.CreateDB(...) 函数自识别redis类型，实例化不同redis客户端实例

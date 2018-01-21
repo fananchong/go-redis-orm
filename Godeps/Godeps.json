@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/fananchong/go-redis-orm",
-	"GoVersion": "go1.8",
+	"GoVersion": "go1.9",
 	"GodepVersion": "v79",
 	"Packages": [
 		"./..."
@@ -8,21 +8,21 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/FZambia/go-sentinel",
-			"Rev": "7ec87ec3f92e789de83d4d4a17a5cd069bd2882f"
+			"Rev": "76bd05e8e22f9f8f5e1dd6d3a85b7951da7cce57"
 		},
 		{
 			"ImportPath": "github.com/garyburd/redigo/internal",
-			"Comment": "v1.3.0",
-			"Rev": "47dc60e71eed504e3ef8e77ee3c6fe720f3be57f"
+			"Comment": "v1.4.0",
+			"Rev": "d1ed5c67e5794de818ea85e6b522fda02623a484"
 		},
 		{
 			"ImportPath": "github.com/garyburd/redigo/redis",
-			"Comment": "v1.3.0",
-			"Rev": "47dc60e71eed504e3ef8e77ee3c6fe720f3be57f"
+			"Comment": "v1.4.0",
+			"Rev": "d1ed5c67e5794de818ea85e6b522fda02623a484"
 		},
 		{
 			"ImportPath": "github.com/golang/protobuf/proto",
-			"Rev": "1643683e1b54a9e88ad26d98f81400c8c9d9f4f9"
+			"Rev": "1e59b77b52bf8e4b449a57e6f79f21226d571845"
 		}
 	]
 }

@@ -71,7 +71,7 @@ type IClient interface {
 }
 ```
 
-例子参考：default_redis_client.go
+例子参考：[default_redis_client.go](default_redis_client.go)
 
 
 ### Redis单机、主从、哨兵、集群搭建

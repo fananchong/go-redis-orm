@@ -22,9 +22,10 @@ import (
 
 func main() {
 
-	dbName := "mysentinel"
+	dbName := "db1"
 
-	go_redis_orm.CreateDB(dbName, []string{"192.168.1.4:46379", "192.168.1.4:46380", "192.168.1.4:46381"})
+	go_redis_orm.SetNewRedisHandler(go_redis_orm.NewDefaultRedisClient)
+	go_redis_orm.CreateDB(dbName, []string{"192.168.1.4:16379"}, "", 0)
 
 	// key值为1的 TestStruct2 数据
 	data2 := NewRD_TestStruct2(1)
@@ -57,12 +58,22 @@ func main() {
 }
 ```
 
-### Redis哨兵、主从搭建
+### SetNewRedisHandler接口
+
+本库支持第3方redis客户端整合进本项目，通过调用go_redis_orm.SetNewRedisHandler函数
+
+需要实现go_redis_orm.IClient接口
+```go
+type IClient interface {
+	Get(key string) ([]byte, error)
+	Set(key string, data []byte) error
+	Del(key string) error
+}
+```
+
+例子参考：default_redis_client.go
+
+
+### Redis单机、主从、哨兵、集群搭建
 
 详细参见：http://blog.csdn.net/u013272009/article/details/78513251
-
-
-### TODO:
-  
-  - 增加接口，支持外部redis实例，方便整合进其他项目中
-  - go_redis_orm.CreateDB(...) 函数自识别redis类型，实例化不同redis客户端实例

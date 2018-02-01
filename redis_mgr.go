@@ -1,25 +1,43 @@
 package go_redis_orm
 
+import (
+	"errors"
+)
+
 var g_redismgr *RedisMgr
 
 type RedisMgr struct {
-	dbs map[string]*RedisClient
+	dbs      map[string]IClient
+	newRedis NewRedisType
 }
 
 func NewRedisMgr() *RedisMgr {
-	return &RedisMgr{dbs: make(map[string]*RedisClient)}
+	return &RedisMgr{
+		dbs: make(map[string]IClient),
+	}
 }
 
-func (this *RedisMgr) Create(dbName string, addrs []string) {
-	db := NewRedisClient(dbName, addrs)
+func (this *RedisMgr) Create(dbName string, addrs []string, password string, dbindex int) error {
+	if this.newRedis == nil {
+		return errors.New("no set new handler!")
+	}
+	db, err := this.newRedis(dbName, addrs, password, dbindex)
+	if err != nil {
+		return err
+	}
 	this.dbs[dbName] = db
+	return nil
 }
 
-func (this *RedisMgr) Get(dbName string) *RedisClient {
+func (this *RedisMgr) Get(dbName string) IClient {
 	if db, ok := this.dbs[dbName]; ok {
 		return db
 	}
 	return nil
+}
+
+func (this *RedisMgr) SetNewRedisHandler(handler NewRedisType) {
+	this.newRedis = handler
 }
 
 func init() {

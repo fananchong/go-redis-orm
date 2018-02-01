@@ -1,4 +1,4 @@
-package go_redis_orm
+package goredis
 
 import (
 	"errors"
@@ -8,18 +8,18 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
-type RedisClient struct {
+type SentinelClient struct {
 	masters    *redis.Pool
 	masterName string
 }
 
-func NewRedisClient(masterName string, addrs []string) *RedisClient {
-	cli := &RedisClient{}
-	cli.Init(masterName, addrs)
+func NewSentinelClient(masterName string, addrs []string, option *Option) *SentinelClient {
+	cli := &SentinelClient{}
+	cli.Init(masterName, addrs, option)
 	return cli
 }
 
-func (this *RedisClient) Init(masterName string, addrs []string) {
+func (this *SentinelClient) Init(masterName string, addrs []string, option *Option) {
 	sntnl := &sentinel.Sentinel{
 		Addrs:      addrs,
 		MasterName: masterName,
@@ -34,10 +34,10 @@ func (this *RedisClient) Init(masterName string, addrs []string) {
 	}
 	this.masterName = masterName
 	this.masters = &redis.Pool{
-		MaxIdle:     10,
-		MaxActive:   0,
-		Wait:        true,
-		IdleTimeout: 240 * time.Second,
+		MaxIdle:     option.PoolMaxIdle,
+		MaxActive:   option.PoolMaxActive,
+		Wait:        option.PoolWait,
+		IdleTimeout: option.PoolIdleTimeout,
 		Dial: func() (redis.Conn, error) {
 			masterAddr, err := sntnl.MasterAddr()
 			if err != nil {
@@ -45,6 +45,16 @@ func (this *RedisClient) Init(masterName string, addrs []string) {
 			}
 			c, err := redis.Dial("tcp", masterAddr)
 			if err != nil {
+				return nil, err
+			}
+			if option.Password != "" {
+				if _, err := c.Do("AUTH", option.Password); err != nil {
+					c.Close()
+					return nil, err
+				}
+			}
+			if _, err := c.Do("SELECT", option.DBIndex); err != nil {
+				c.Close()
 				return nil, err
 			}
 			return c, nil
@@ -59,12 +69,12 @@ func (this *RedisClient) Init(masterName string, addrs []string) {
 	}
 }
 
-func (this *RedisClient) Do(commandName string, args ...interface{}) (reply interface{}, err error) {
+func (this *SentinelClient) Do(commandName string, args ...interface{}) (reply interface{}, err error) {
 	conn := this.masters.Get()
-	defer conn.Close()
 	if conn != nil {
+		defer conn.Close()
 		return conn.Do(commandName, args...)
 	} else {
-		return nil, errors.New("[redis] Can't get master!")
+		return nil, errors.New("[redis] Can't get redis conn!")
 	}
 }

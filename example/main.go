@@ -8,9 +8,10 @@ import (
 
 func main() {
 
-	dbName := "mysentinel"
+	dbName := "db1"
 
-	go_redis_orm.CreateDB(dbName, []string{"192.168.1.4:46379", "192.168.1.4:46380", "192.168.1.4:46381"})
+	go_redis_orm.SetNewRedisHandler(go_redis_orm.NewDefaultRedisClient)
+	go_redis_orm.CreateDB(dbName, []string{"192.168.1.4:16379"}, "", 0)
 
 	// key值为1的 TestStruct2 数据
 	data2 := NewRD_TestStruct2(1)

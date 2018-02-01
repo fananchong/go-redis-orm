@@ -7,7 +7,6 @@ package main
 
 import (
 	"github.com/fananchong/go-redis-orm"
-	"github.com/garyburd/redigo/redis"
 	"github.com/golang/protobuf/proto"
 	"strconv"
 )
@@ -35,9 +34,9 @@ func (this *RD_TestStruct2) Load(dbName string) error {
 	this.TestStruct2.Reset()
 	this.Id = id
 	db := go_redis_orm.GetDB(dbName)
-	val, err := redis.String(db.Do("GET", this.Key()))
+	val, err := db.Get(this.Key())
 	if err == nil {
-		err = proto.Unmarshal([]byte(val), &this.TestStruct2)
+		err = proto.Unmarshal(val, &this.TestStruct2)
 	}
 	return err
 }
@@ -46,13 +45,13 @@ func (this *RD_TestStruct2) Save(dbName string) error {
 	db := go_redis_orm.GetDB(dbName)
 	val, err := this.Value()
 	if err == nil {
-		_, err = db.Do("SET", this.Key(), val)
+		err = db.Set(this.Key(), val)
 	}
 	return err
 }
 
 func (this *RD_TestStruct2) Delete(dbName string) error {
 	db := go_redis_orm.GetDB(dbName)
-	_, err := db.Do("DEL", this.Key())
+	err := db.Del(this.Key())
 	return err
 }
